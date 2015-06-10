@@ -6,12 +6,14 @@
         <script type="text/javascript">
             $(function() {
                 jpage({
-                    index: 24,
-                    total: 27
+                    index: 1,
+                    total: 10
                 }, function(x) {
                     document.write('<ul>');
                     for (var i = 0; i < x.length; i++) {
-                        document.write('<li><a href="' + x[i].value + '"> ' + x[i].label + ' </a></li>');
+                        x[i].value == '#' ?
+                            document.write('<li>' + x[i].label + '</li>') :
+                            document.write('<li><a href="' + x[i].value + '"> ' + x[i].label + ' </a></li>');
                     }
                     document.write('</ul>');
                 });

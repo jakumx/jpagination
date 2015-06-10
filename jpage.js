@@ -30,7 +30,7 @@ function jpage (data, callback) {
         return pagination;
     }
     if (totalPages < 10 ) {
-        jpageResponse = paginationObj(paginationNumbers+1, paginationNumbers+10);
+        jpageResponse = paginationObj(paginationNumbers+1, totalPages);
         callback(jpageResponse);
         return;
     }
