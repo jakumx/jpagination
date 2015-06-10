@@ -2,59 +2,16 @@
 <html>
     <head>
         <script src="jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="jpage.js"></script>
         <script type="text/javascript">
             $(function() {
-                var totalPages = 31, indexPage = 10, paginationNumbers;
-                if (totalPages < 10 ) {
-                    console.log('totalPages<10');
-                    impresion(paginationNumbers+1, paginationNumbers+10, indexPage, totalPages)
-                    return;
+                var x = jpage(25, 26);
+                document.write('<ul>');
+                for (var i = 0; i < x.length; i++) {
+                    document.write('<li><a href="' + x[i].value + '"> ' + x[i].label + ' </a></li>');
                 }
-                var numberIndexPage = Math.floor(indexPage/10), numberTotalPages = Math.floor(totalPages/10);
-                if ( numberIndexPage != numberTotalPages ) {
-                    console.log('numberIndexPage != numberTotalPages');
-                    if (indexPage%10 == 0) {
-                        paginationNumbers = (numberIndexPage-1) * 10;
-                        impresion(paginationNumbers+1, paginationNumbers+10, indexPage, totalPages);
-                        return;
-                    } else {
-                        paginationNumbers = (numberIndexPage) * 10;
-                        impresion(paginationNumbers+1, paginationNumbers+10, indexPage, totalPages);
-                        return;
-                    }
-                } else {
-                    console.log('numberIndexPage == numberTotalPages');
-                    console.log(indexPage%10);
-                    if (indexPage%10 == 0) {
-                        paginationNumbers = (numberIndexPage-1) * 10;
-                        impresion(paginationNumbers+1, paginationNumbers+10, indexPage, totalPages);
-                        return;
-                    } else {
-                        var modSobrante = totalPages%10;
-                        impresion(((numberIndexPage*10 )+1), (modSobrante+(numberIndexPage*10)), indexPage, totalPages);
-                        return;
-                    }
-
-                }
-                console.log('no entro a ninguno');
+                document.write('</ul>');
             });
-
-            var impresion = function(start, end, indexPage, totalPages) {
-                console.log(start, end, indexPage, totalPages);
-                if (start > 10) {
-                    document.write ('<<');
-                }
-                for (var i = start; i <= end; i++) {
-                    if (indexPage == i) {
-                        document.write ('(' + i + ' <strong>page</strong> selected)');
-                    } else {
-                        document.write(' ' + i);
-                    }
-                }
-                if (end < totalPages) {
-                    document.write('>>');
-                }
-            }
         </script>
     </head>
     <body>
