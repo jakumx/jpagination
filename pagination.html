@@ -5,12 +5,16 @@
         <script type="text/javascript" src="jpage.js"></script>
         <script type="text/javascript">
             $(function() {
-                var x = jpage(25, 26);
-                document.write('<ul>');
-                for (var i = 0; i < x.length; i++) {
-                    document.write('<li><a href="' + x[i].value + '"> ' + x[i].label + ' </a></li>');
-                }
-                document.write('</ul>');
+                jpage({
+                    index: 24,
+                    total: 27
+                }, function(x) {
+                    document.write('<ul>');
+                    for (var i = 0; i < x.length; i++) {
+                        document.write('<li><a href="' + x[i].value + '"> ' + x[i].label + ' </a></li>');
+                    }
+                    document.write('</ul>');
+                });
             });
         </script>
     </head>

@@ -1,8 +1,11 @@
-function jpage (indexPage, totalPages) {
+function jpage (data, callback) {
     console.log('jpage');
+    var indexPage = data.index,
+        totalPages = data.total,
+        paginationNumbers = 0,
+        jpageResponse = [];
     console.log(indexPage, totalPages);
-    var paginationNumbers = 0;
-    function jpageResponse (start, end) {
+    function paginationObj (start, end) {
         var pagination = [];
         if (start > 10) {
             pagination.push({
@@ -16,7 +19,7 @@ function jpage (indexPage, totalPages) {
             pagination.push({
                 value: v,
                 label: i
-            })
+            });
         }
         if (end < totalPages) {
             pagination.push({
@@ -27,24 +30,27 @@ function jpage (indexPage, totalPages) {
         return pagination;
     }
     if (totalPages < 10 ) {
-        return jpageResponse(paginationNumbers+1, paginationNumbers+10)
+        jpageResponse = paginationObj(paginationNumbers+1, paginationNumbers+10);
+        callback(jpageResponse);
+        return;
     }
     var numberIndexPage = Math.floor(indexPage/10), numberTotalPages = Math.floor(totalPages/10);
     if ( numberIndexPage != numberTotalPages ) {
         if (indexPage%10 == 0) {
             paginationNumbers = (numberIndexPage-1) * 10;
-            return jpageResponse(paginationNumbers+1, paginationNumbers+10);
+            jpageResponse = paginationObj(paginationNumbers+1, paginationNumbers+10);
         } else {
             paginationNumbers = (numberIndexPage) * 10;
-            return jpageResponse(paginationNumbers+1, paginationNumbers+10);
+            jpageResponse = paginationObj(paginationNumbers+1, paginationNumbers+10);
         }
     } else {
         if (indexPage%10 == 0) {
             paginationNumbers = (numberIndexPage-1) * 10;
-            return jpageResponse(paginationNumbers+1, paginationNumbers+10);
+            jpageResponse = paginationObj(paginationNumbers+1, paginationNumbers+10);
         } else {
             var modSobrante = totalPages%10;
-            return jpageResponse(((numberIndexPage*10 )+1), (modSobrante+(numberIndexPage*10)));
+            jpageResponse = paginationObj(((numberIndexPage*10 )+1), (modSobrante+(numberIndexPage*10)));
         }
     }
+    callback(jpageResponse);
 }
